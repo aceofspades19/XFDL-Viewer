@@ -22,35 +22,32 @@ class XFDL_doc:
 class Viewer(Frame):
     def __init__(self, master=None):
         Frame.__init__(self, master)
-        self.pack()
         root = Tk()
         self.menu_frame = Frame(root)
-    def help_menu(self):
-        help_btn = Tkinter.Menubutton(menu_frame, text='Help', underline=0)
-        help_btn.pack(side=Tkinter.LEFT, padx="2m")
-        help_btn.menu = Tkinter.Menu(help_btn)
-        help_btn.menu.add_command(label="How To", underline=0, command=HowTo)
-        help_btn.menu.add_command(label="About", underline=0, command=About)
-        help_btn['menu'] = help_btn.menu
-        return help_btn
-    def file_menu(self):
-        file_btn = Tkinter.Menubutton(menu_frame, text='file', underline=0)
-        file_btn.pack(side=Tkinter.LEFT, padx="2m")
-        file_btn.menu = Tkinter.Menu(help_btn)
-        file_btn.menu.add_command(label="Open", underline=0, command=HowTo)
-        file_btn.menu.add_command(label="Save", underline=0, command=About)
-        file_btn['menu'] = file_btn.menu
-    def run(self):
-        Frame.__init__(self, self.master)
         self.pack()
-        root = Tk()
         root.title("XFDL Viewer")
-        menu_frame = Frame(root)
-        menu_frame.pack(fill=Tkinter.X, side=Tkinter.TOP)
-        menu_frame.tk_menuBar(self.file_menu(),  self.help_menu())
+        self.menu_frame.pack(fill=Tkinter.X, side=Tkinter.TOP)
+        self.main_frame = Frame(root, width=500, height=500)
+        self.main_frame.pack()
+        self.run()
         app = Application(master=root)      
         app.mainloop()
         root.destroy()
+    def help_menu(self):
+        help_btn = Tkinter.Menubutton(self.menu_frame, text='Help', underline=0)
+        help_btn.pack(side=Tkinter.LEFT, padx="2m")
+        help_btn.menu = Tkinter.Menu(help_btn)
+        help_btn['menu'] = help_btn.menu
+        return help_btn
+    def file_menu(self):
+        file_btn = Tkinter.Menubutton(self.menu_frame, text='File', underline=0)
+        file_btn.pack(side=Tkinter.LEFT, padx="2m")
+        file_btn.menu = Tkinter.Menu(file_btn)
+        file_btn['menu'] = file_btn.menu
+    def run(self):
+        self.menu_frame.tk_menuBar(self.file_menu(),  self.help_menu())
+ 
+  
  
     
 if __name__ == '__main__':
